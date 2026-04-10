@@ -2,7 +2,7 @@
 #include<string.h>
 char input[100];
 int i=0;
-
+int error =0;
 void E();
 void Eprime();
 void T();
@@ -13,7 +13,7 @@ void match(char c){
     if(input[i] == c)
     i++;
     else{
-        rpintf("error in parsing...\n");
+        error = 1;
         return;
     }
 }
@@ -38,7 +38,7 @@ void T(){
 
 void Tprime(){
     if(input[i] == '*'){
-        match(*);
+        match('*');
         F();
         Tprime();
     }
@@ -56,7 +56,8 @@ void F(){
         match('d');
     }
     else{
-        printf("Error in parsing\n");
+        error = 1;
+        return;
         
     }
 }
@@ -67,7 +68,7 @@ int main() {
     scanf("%s",input);
     E();
     
-    if(input[i] == '\0'){
+    if(error==0 && input[i] == '\0'){
         printf("successfully parsed\n");
     }
     else{
